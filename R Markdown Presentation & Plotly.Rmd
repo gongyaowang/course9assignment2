@@ -1,0 +1,42 @@
+---
+title: "R Markdown Presentation and Plotly"
+author: "Gongyao Wang"
+date: "February 17, 2018"
+output: 
+  ioslides_presentation: 
+    widescreen: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r}
+library(plotly)
+```
+
+## Slide with Plot (Speed vs. Dist with scatter)
+```{r cars, echo = FALSE}
+plot_ly (data = cars, x = ~speed, y = ~dist, color = ~speed, size = ~dist, type = 'scatter', mode = 'markers')
+```
+
+## Slide with Plot (Speed vs. Dist with 2D Histograms)
+```{r}
+p <- plot_ly(data = cars, x = ~speed, y = ~dist) 
+subplot(
+  p %>% add_markers(alpha = 1), 
+  p %>% add_histogram2d()
+) 
+```
+
+
+
+## Slide with Plot (Temperature vs. Pressure)
+
+```{r pressure}
+#plot(pressure)
+
+plot_ly (data = pressure, x = ~temperature, y = ~pressure, name = 'p vs t', type = 'scatter', mode = 'markers') %>% add_lines(name = "spline", line = list(shape = "spline")) %>% layout(title = "relationship between temperature and pressure")
+```
+
